@@ -7,13 +7,15 @@ const pathCharacter = '*';
 
 class Field {
     
-    constructor(wi, hi){
+    constructor(wi, hi,per){
         this.width=wi
         this.height=hi
         this.ploc=[0,0]
         this.arr=[]
         this.generateRandom()
-      
+        this.per=per
+        this.holes=Math.floor((per/100)*wi*hi)
+     
     }
     updateLoc(){
         
@@ -45,6 +47,7 @@ class Field {
           var cha=this.arr[this.ploc[0]][this.ploc[1]] 
           if(cha==hole){return -1}
            else if (cha==hat) {return 1}
+           else if (cha==pathCharacter) {return -1}
          
           return 0
   }
@@ -114,7 +117,7 @@ class Field {
     }
    }
    cont=0
-   
+
    while(cont==0){
     ry=Math.floor(Math.random()*this.height)
     rx=Math.floor(Math.random()*this.width)
@@ -123,14 +126,12 @@ class Field {
       this.arr[ry][rx]=hole
     }
    }
-  
-   console.log(this.arr)
-
   }
-  
 }
 
-
-var myField = new Field(6,6);
+var y = prompt('Enter the width:');
+var x = prompt('Enter the height:');
+var per = prompt('Enter the percentage of holes:');
+var myField = new Field(y,x,per);
       
-
+myField.playGame()

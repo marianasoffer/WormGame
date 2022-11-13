@@ -7,13 +7,15 @@ const pathCharacter = '*';
 
 class Field {
     
-    constructor(wi, hi){
+    constructor(wi, hi,per){
         this.width=wi
         this.height=hi
         this.ploc=[0,0]
         this.arr=[]
         this.generateRandom()
-      
+        this.per=per
+        this.holes=Math.floor((per/100)*wi*hi)
+     
     }
     updateLoc(){
         
@@ -129,6 +131,7 @@ class Field {
 
 var y = prompt('Enter the width:');
 var x = prompt('Enter the height:');
-var myField = new Field(y,x);
+var per = prompt('Enter the percentage of holes:');
+var myField = new Field(y,x,per);
       
 myField.playGame()
