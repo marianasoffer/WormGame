@@ -5,13 +5,14 @@ const hole = 'O';
 const fieldCharacter = '░';
 const pathCharacter = '*';
 
-
 class Field {
     
-    constructor(ar, iploc){
-        this.arr=ar
-        this.ploc=iploc
-
+    constructor(wi, hi){
+        this.width=wi
+        this.height=hi
+        this.ploc=[0,0]
+        this.arr=[]
+        this.generateRandom()
       
     }
     updateLoc(){
@@ -44,6 +45,7 @@ class Field {
           var cha=this.arr[this.ploc[0]][this.ploc[1]] 
           if(cha==hole){return -1}
            else if (cha==hat) {return 1}
+           else if (cha==pathCharacter) {return -1}
          
           return 0
   }
@@ -65,6 +67,7 @@ class Field {
   
     
   }
+
   playGame() {
     var res=0
     while (res===0) {
@@ -76,14 +79,56 @@ class Field {
     else if (res===1) { console.log("You won!")}
    }
 
-}
-    var myField = new Field([
-        ['*', '░', 'O'],
-        ['░', 'O', '░'],
-        ['░', '^', '░'],
-        ['░', '░', '░'],
-    
-      ],[0,0]);
-      
 
+  generateRandom() {
+    
+    for (var i=0;i<this.height;i++)
+    {
+
+      var file=[]
+      for (var j=0;j<this.width;j++){
+        file.push(fieldCharacter);
+      }
+      this.arr.push(file)
+    }
+    this.arr[0][0]=pathCharacter
+   var rx
+   var ry
+   var cont
+    
+   cont=0
+   while(cont==0){
+    ry=Math.floor(Math.random()*this.height)
+    rx=Math.floor(Math.random()*this.width)
+    if (this.arr[ry][rx]==fieldCharacter) {
+      cont=1
+      this.arr[ry][rx]=hat
+    }
+   }
+   cont=0
+   while(cont==0){
+    ry=Math.floor(Math.random()*this.height)
+    rx=Math.floor(Math.random()*this.width)
+    if (this.arr[ry][rx]==fieldCharacter) {
+      cont=1
+      this.arr[ry][rx]=hole
+    }
+   }
+   cont=0
+
+   while(cont==0){
+    ry=Math.floor(Math.random()*this.height)
+    rx=Math.floor(Math.random()*this.width)
+    if (this.arr[ry][rx]==fieldCharacter) {
+      cont=1
+      this.arr[ry][rx]=hole
+    }
+   }
+  }
+}
+
+var y = prompt('Enter the width:');
+var x = prompt('Enter the height:');
+var myField = new Field(y,x);
+      
 myField.playGame()
